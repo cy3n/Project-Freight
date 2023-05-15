@@ -1,0 +1,1248 @@
+
+RecordEdits
+
+Define ExpressionLogger { ExpressionLogger1 }
+Define InputValue { InputValue1  InputValue2  InputValue3 }
+Define DiscreteDistribution { DiscreteDistribution1 }
+Define NormalDistribution { NormalDistribution1  NormalDistribution2  NormalDistribution3 }
+Define AddTo { AddToTruck }
+Define Branch { Branch1  Branch2  Branch3  Branch4  Branch5 }
+Define EntityContainer { CCTraytruck }
+Define EntityConveyor { CARTray  CCTray  EntityConveyor1  EntityConveyor2  EntityConveyor3  EntityConveyor5  EntityConveyor6  EntityConveyor7  EntityConveyor8  EntityConveyor9  EntityConveyor10  EntityConveyor11  EntityConveyor12  EntityConveyor13  EntityConveyor14  EntityConveyor15  EntityConveyor16  EntityConveyor17  EntityConveyor18 }
+Define EntityDelay { CloseTime  CloseTime2  CloseTime3  CloseTime4  CloseTime5  CloseTime6  CloseTime7  CloseTime8  OpenTime  OpenTime2  OpenTime3  OpenTime4  OpenTime5  OpenTime6  OpenTime7  OpenTime8 }
+Define EntityGate { EntityGate1  EntityGate2  EntityGate3  EntityGate4  EntityGate5  EntityGate6  EntityGate7  EntityGate8 }
+Define EntityGenerator { CARtrafficgenerator  CARtrafficgenerator2  CARtrafficgenerator3  CARtrafficgenerator4  CARtrafficgenerator5  CarPartsEnteringLoadingDock  TruckGenerator  ballgenerator  ballgenerator2  ballgenerator3  ballgenerator4  ballgenerator5  ballgenerator6  ballgenerator7  ballgenerator8 }
+Define EntitySignal { Open4  Open8  close1  close2  close3  close4  close5  close6  close7  close8  open1  open2  open3  open5  open6  open7 }
+Define EntitySink { EntitySink1  EntitySink2  EntitySink3  EntitySink5  EntitySink6  ParcelExit }
+Define Queue { BusQueue  DockingStation  Queue3  Queue4  Queue5  Queue6  Queue7  trafficQ  trafficQ_7  trafficQ_Back  trafficQ_Back_2 }
+Define RemoveFrom { FACTORY }
+Define SignalThreshold { SignalThreshold1  SignalThreshold2  SignalThreshold3  SignalThreshold4  SignalThreshold5  SignalThreshold6  SignalThreshold7  SignalThreshold8 }
+Define SimEntity { CAR  CAR2  CAR3  CAR4  CAR5  Parcel  TimeBall  TimeBall2  TimeBall3  TimeBall4  TimeBall5  TimeBall6  TimeBall7  TimeBall8 }
+Define ColladaModel { Axis  Grid100x100 }
+Define ImageModel { 8-model  8-model1  busterminal-model  busterminal-model1  car-model  car-model1  delivery-model  enter-model  enter-model1  exit-model  exit-model1  exit-model2  exit-model3  load-model  load-model1  loadedtruck-model  loadedtruck-model1  loadedtruck-model2  parcel-model  parcel-model1  parcel-model2  parcel-model3  plane-model  plane-model1  road-model  road-model1  road-model2  road-model3  truck-model  truck-model1  truck-model2  truck-model3  warehouse-model  warehouse-model1 }
+Define Arrow { Arrow1  Arrow2  Arrow3 }
+Define DisplayEntity { XY-Grid  XYZ-Axis }
+Define EntityLabel { AddToTruck_Label  BusQueue_Label  CAR3_Label  CAR5_Label  CARtrafficgenerator5_Label  CarPartsEnteringLoadingDock_Label  CloseTime2_Label  CloseTime3_Label  CloseTime6_Label  CloseTime7_Label  CloseTime_Label  DockingStation_Label  EntityConveyor2_Label  EntityConveyor3_Label  EntityConveyor5_Label  EntityConveyor9_Label  EntityConveyor10_Label  EntityConveyor11_Label  EntityConveyor17_Label  EntityGate1_Label  FACTORY_Label  OpenTime2_Label  OpenTime3_Label  OpenTime6_Label  OpenTime7_Label  OpenTime_Label  ParcelExit_Label  Parcel_Label  Queue3_Label  ballgenerator_Label  close7_Label  trafficQ_7_Label }
+Define Graph { Graph1 }
+Define OverlayClock { Clock }
+Define OverlayText { Title }
+Define Text { Text1  Text2  Text3  Text4  Text5  Text6  Text7  Text8  Text9  Text10  Text11  Text12  Text13  Text14 }
+Define View { View1  View2 }
+
+InputValue1 UnitType { TimeUnit }
+InputValue2 UnitType { TimeUnit }
+InputValue3 UnitType { TimeUnit }
+DiscreteDistribution1 UnitType { DimensionlessUnit }
+NormalDistribution1 UnitType { TimeUnit }
+NormalDistribution2 UnitType { TimeUnit }
+NormalDistribution3 UnitType { TimeUnit }
+Graph1 UnitType { RateUnit }
+Text3 UnitType { RateUnit }
+
+Simulation Description { 'Simulation run control inputs' }
+
+# *** ExpressionLogger ***
+
+ExpressionLogger1 DataSource { { ([ParcelExit].NumberProcessed)/([Simulation].SimTime) } { [Simulation].SimTime) } }
+ExpressionLogger1 SeparateFiles { TRUE }
+ExpressionLogger1 IncludeInitialization { TRUE }
+ExpressionLogger1 StartTime { 0.0  h }
+ExpressionLogger1 EndTime { 24  h }
+ExpressionLogger1 Interval { 1  [h] }
+ExpressionLogger1 ValueTraceList { { ([ParcelExit].NumberProcessed)/([Simulation].SimTime) } { [Simulation].SimTime) } }
+
+# *** InputValue ***
+
+InputValue1 Value { 60  s }
+
+InputValue2 Value { 2  s }
+
+InputValue3 Value { 200  s }
+
+# *** DiscreteDistribution ***
+
+DiscreteDistribution1 RandomSeed { 4 }
+DiscreteDistribution1 ValueList { 1  2 }
+DiscreteDistribution1 ProbabilityList { 0.20  0.80 }
+
+# *** NormalDistribution ***
+
+NormalDistribution1 RandomSeed { 2 }
+NormalDistribution1 MinValue { 0  s }
+NormalDistribution1 Mean { 50  s }
+NormalDistribution1 StandardDeviation { 5  s }
+
+NormalDistribution2 RandomSeed { 2 }
+NormalDistribution2 MinValue { 0  s }
+NormalDistribution2 Mean { InputValue1 }
+NormalDistribution2 StandardDeviation { InputValue2 }
+
+NormalDistribution3 RandomSeed { 1 }
+NormalDistribution3 MinValue { 0  s }
+NormalDistribution3 Mean { 15  s }
+NormalDistribution3 StandardDeviation { 10  s }
+
+# *** AddTo ***
+
+AddToTruck NextComponent { trafficQ }
+AddToTruck WaitQueue { DockingStation }
+AddToTruck NumberOfEntities { 10 }
+AddToTruck ContainerQueue { BusQueue }
+
+# *** Branch ***
+
+Branch1 NextComponentList { EntityConveyor6  EntityConveyor11 }
+Branch1 Choice { DiscreteDistribution1 }
+
+Branch2 NextComponentList { CARTray  CCTray }
+Branch2 Choice { 'format("%.3s",this.obj.Name)=="CAR"?1:2' }
+
+Branch3 NextComponentList { EntityConveyor6  EntityConveyor11 }
+Branch3 Choice { DiscreteDistribution1 }
+
+Branch4 NextComponentList { EntityConveyor16  EntityConveyor17 }
+Branch4 Choice { DiscreteDistribution1 }
+
+Branch5 NextComponentList { EntityConveyor16  EntityConveyor13 }
+Branch5 Choice { DiscreteDistribution1 }
+
+# *** EntityContainer ***
+
+
+# *** EntityConveyor ***
+
+CARTray NextComponent { EntitySink1 }
+CARTray TravelTime { 40  s }
+
+CCTray NextComponent { FACTORY }
+CCTray TravelTime { 40  s }
+
+EntityConveyor1 NextComponent { DockingStation }
+EntityConveyor1 TravelTime { 30.0  s }
+
+EntityConveyor2 NextComponent { EntityGate3 }
+EntityConveyor2 TravelTime { 40.0  s }
+
+EntityConveyor3 NextComponent { EntityGate1 }
+EntityConveyor3 TravelTime { 40  s }
+
+EntityConveyor5 NextComponent { EntitySink2 }
+EntityConveyor5 TravelTime { 40  s }
+
+EntityConveyor6 NextComponent { EntityGate5 }
+EntityConveyor6 TravelTime { 40.0  s }
+
+EntityConveyor7 NextComponent { ParcelExit }
+EntityConveyor7 TravelTime { 30  s }
+
+EntityConveyor8 NextComponent { EntityGate4 }
+EntityConveyor8 TravelTime { 40  s }
+
+EntityConveyor9 NextComponent { BusQueue }
+EntityConveyor9 TravelTime { 40  s }
+
+EntityConveyor10 NextComponent { EntityGate2 }
+EntityConveyor10 TravelTime { 40  s }
+
+EntityConveyor11 NextComponent { EntitySink3 }
+EntityConveyor11 TravelTime { 40  s }
+
+EntityConveyor12 NextComponent { EntityConveyor2 }
+EntityConveyor12 TravelTime { 40  s }
+
+EntityConveyor13 NextComponent { EntitySink5 }
+EntityConveyor13 TravelTime { 40  s }
+
+EntityConveyor14 NextComponent { EntityGate7 }
+EntityConveyor14 TravelTime { 40  s }
+
+EntityConveyor15 NextComponent { EntityGate6 }
+EntityConveyor15 TravelTime { 40  s }
+
+EntityConveyor16 NextComponent { Branch2 }
+EntityConveyor16 TravelTime { 40.0  s }
+
+EntityConveyor17 NextComponent { EntitySink6 }
+EntityConveyor17 TravelTime { 40  s }
+
+EntityConveyor18 NextComponent { EntityGate8 }
+EntityConveyor18 TravelTime { 40  s }
+
+# *** EntityDelay ***
+
+CloseTime NextComponent { open1 }
+CloseTime Duration { InputValue3 }
+
+CloseTime2 NextComponent { open2 }
+CloseTime2 Duration { InputValue3 }
+
+CloseTime3 NextComponent { open3 }
+CloseTime3 Duration { InputValue3 }
+
+CloseTime4 NextComponent { Open4 }
+CloseTime4 Duration { InputValue3 }
+
+CloseTime5 NextComponent { open5 }
+CloseTime5 Duration { InputValue3 }
+
+CloseTime6 NextComponent { open6 }
+CloseTime6 Duration { InputValue3 }
+
+CloseTime7 NextComponent { open7 }
+CloseTime7 Duration { InputValue3 }
+
+CloseTime8 NextComponent { Open8 }
+CloseTime8 Duration { InputValue3 }
+
+OpenTime NextComponent { close1 }
+OpenTime Duration { InputValue3 }
+
+OpenTime2 NextComponent { close2 }
+OpenTime2 Duration { InputValue3 }
+
+OpenTime3 NextComponent { close3 }
+OpenTime3 Duration { InputValue3 }
+
+OpenTime4 NextComponent { close4 }
+OpenTime4 Duration { InputValue3 }
+
+OpenTime5 NextComponent { close5 }
+OpenTime5 Duration { InputValue3 }
+
+OpenTime6 NextComponent { close6 }
+OpenTime6 Duration { InputValue3 }
+
+OpenTime7 NextComponent { close7 }
+OpenTime7 Duration { InputValue3 }
+
+OpenTime8 NextComponent { close8 }
+OpenTime8 Duration { InputValue3 }
+
+# *** EntityGate ***
+
+EntityGate1 ImmediateThresholdList { SignalThreshold1 }
+EntityGate1 NextComponent { Branch1 }
+EntityGate1 WaitQueue { Queue3 }
+EntityGate1 ReleaseDelay { 5  s }
+EntityGate1 NumberToRelease { 1000 }
+
+EntityGate2 ImmediateThresholdList { SignalThreshold2 }
+EntityGate2 NextComponent { EntityConveyor11 }
+EntityGate2 WaitQueue { Queue5 }
+EntityGate2 ReleaseDelay { 5  s }
+EntityGate2 NumberToRelease { 1000 }
+
+EntityGate3 ImmediateThresholdList { SignalThreshold3 }
+EntityGate3 NextComponent { EntityConveyor6 }
+EntityGate3 WaitQueue { trafficQ }
+EntityGate3 ReleaseDelay { 5  s }
+EntityGate3 NumberToRelease { 1000 }
+
+EntityGate4 ImmediateThresholdList { SignalThreshold1 }
+EntityGate4 NextComponent { EntityConveyor9 }
+EntityGate4 WaitQueue { trafficQ_Back }
+EntityGate4 ReleaseDelay { 5  s }
+EntityGate4 NumberToRelease { 1000 }
+
+EntityGate5 OperatingThresholdList { SignalThreshold5 }
+EntityGate5 NextComponent { EntityConveyor16 }
+EntityGate5 WaitQueue { trafficQ_7 }
+EntityGate5 ReleaseDelay { 5.0  s }
+EntityGate5 NumberToRelease { 1000 }
+
+EntityGate6 OperatingThresholdList { SignalThreshold8 }
+EntityGate6 NextComponent { EntityConveyor8 }
+EntityGate6 WaitQueue { trafficQ_Back_2 }
+EntityGate6 ReleaseDelay { 5.0  s }
+EntityGate6 NumberToRelease { 2147483647 }
+
+EntityGate7 OperatingThresholdList { SignalThreshold7 }
+EntityGate7 NextComponent { Branch5 }
+EntityGate7 WaitQueue { Queue6 }
+EntityGate7 ReleaseDelay { 5.0  s }
+EntityGate7 NumberToRelease { 2147483647 }
+
+EntityGate8 OperatingThresholdList { SignalThreshold6 }
+EntityGate8 NextComponent { Branch4 }
+EntityGate8 WaitQueue { Queue7 }
+EntityGate8 ReleaseDelay { 5.0  s }
+EntityGate8 NumberToRelease { 2147483647 }
+
+# *** EntityGenerator ***
+
+CARtrafficgenerator NextComponent { EntityConveyor3 }
+CARtrafficgenerator InterArrivalTime { NormalDistribution2 }
+CARtrafficgenerator PrototypeEntity { CAR }
+
+CARtrafficgenerator2 NextComponent { EntityConveyor10 }
+CARtrafficgenerator2 InterArrivalTime { NormalDistribution2 }
+CARtrafficgenerator2 PrototypeEntity { CAR2 }
+
+CARtrafficgenerator3 NextComponent { EntityConveyor12 }
+CARtrafficgenerator3 InterArrivalTime { NormalDistribution2 }
+CARtrafficgenerator3 PrototypeEntity { CAR3 }
+
+CARtrafficgenerator4 NextComponent { EntityConveyor14 }
+CARtrafficgenerator4 InterArrivalTime { NormalDistribution2 }
+CARtrafficgenerator4 PrototypeEntity { CAR4 }
+
+CARtrafficgenerator5 NextComponent { EntityConveyor18 }
+CARtrafficgenerator5 InterArrivalTime { NormalDistribution2 }
+CARtrafficgenerator5 PrototypeEntity { CAR5 }
+
+CarPartsEnteringLoadingDock NextComponent { EntityConveyor1 }
+CarPartsEnteringLoadingDock InterArrivalTime { NormalDistribution1 }
+CarPartsEnteringLoadingDock PrototypeEntity { Parcel }
+
+TruckGenerator NextComponent { BusQueue }
+TruckGenerator FirstArrivalTime { NormalDistribution3 }
+TruckGenerator PrototypeEntity { CCTraytruck }
+TruckGenerator MaxNumber { 1 }
+
+ballgenerator NextComponent { open1 }
+ballgenerator InterArrivalTime { NormalDistribution3 }
+ballgenerator PrototypeEntity { TimeBall }
+ballgenerator MaxNumber { 1 }
+
+ballgenerator2 NextComponent { open2 }
+ballgenerator2 PrototypeEntity { TimeBall2 }
+ballgenerator2 MaxNumber { 1 }
+
+ballgenerator3 NextComponent { close3 }
+ballgenerator3 PrototypeEntity { TimeBall3 }
+ballgenerator3 MaxNumber { 1 }
+
+ballgenerator4 NextComponent { close4 }
+ballgenerator4 PrototypeEntity { TimeBall4 }
+ballgenerator4 MaxNumber { 1 }
+
+ballgenerator5 NextComponent { open5 }
+ballgenerator5 PrototypeEntity { TimeBall5 }
+ballgenerator5 MaxNumber { 1 }
+
+ballgenerator6 NextComponent { close6 }
+ballgenerator6 PrototypeEntity { TimeBall6 }
+ballgenerator6 MaxNumber { 1 }
+
+ballgenerator7 NextComponent { close7 }
+ballgenerator7 PrototypeEntity { TimeBall2 }
+ballgenerator7 MaxNumber { 1 }
+
+ballgenerator8 NextComponent { Open8 }
+ballgenerator8 PrototypeEntity { TimeBall8 }
+ballgenerator8 MaxNumber { 1 }
+
+# *** EntitySignal ***
+
+Open4 NextComponent { OpenTime4 }
+Open4 TargetSignalThreshold { SignalThreshold4 }
+Open4 NewState { TRUE }
+
+Open8 NextComponent { OpenTime8 }
+Open8 TargetSignalThreshold { SignalThreshold8 }
+Open8 NewState { TRUE }
+
+close1 NextComponent { CloseTime }
+close1 TargetSignalThreshold { SignalThreshold1 }
+close1 NewState { FALSE }
+
+close2 NextComponent { CloseTime2 }
+close2 TargetSignalThreshold { SignalThreshold2 }
+close2 NewState { FALSE }
+
+close3 NextComponent { CloseTime3 }
+close3 TargetSignalThreshold { SignalThreshold3 }
+close3 NewState { FALSE }
+
+close4 NextComponent { CloseTime4 }
+close4 TargetSignalThreshold { SignalThreshold4 }
+close4 NewState { FALSE }
+
+close5 NextComponent { CloseTime5 }
+close5 TargetSignalThreshold { SignalThreshold5 }
+close5 NewState { FALSE }
+
+close6 NextComponent { CloseTime6 }
+close6 TargetSignalThreshold { SignalThreshold6 }
+close6 NewState { FALSE }
+
+close7 NextComponent { CloseTime7 }
+close7 TargetSignalThreshold { SignalThreshold7 }
+close7 NewState { FALSE }
+
+close8 NextComponent { CloseTime8 }
+close8 TargetSignalThreshold { SignalThreshold8 }
+close8 NewState { FALSE }
+
+open1 NextComponent { OpenTime }
+open1 TargetSignalThreshold { SignalThreshold1 }
+open1 NewState { TRUE }
+
+open2 NextComponent { OpenTime2 }
+open2 TargetSignalThreshold { SignalThreshold2 }
+open2 NewState { TRUE }
+
+open3 NextComponent { OpenTime3 }
+open3 TargetSignalThreshold { SignalThreshold3 }
+open3 NewState { TRUE }
+
+open5 NextComponent { OpenTime5 }
+open5 TargetSignalThreshold { SignalThreshold5 }
+open5 NewState { TRUE }
+
+open6 NextComponent { OpenTime6 }
+open6 TargetSignalThreshold { SignalThreshold6 }
+open6 NewState { TRUE }
+
+open7 NextComponent { OpenTime7 }
+open7 TargetSignalThreshold { SignalThreshold7 }
+open7 NewState { TRUE }
+
+# *** EntitySink ***
+
+
+
+
+
+
+
+# *** Queue ***
+
+
+
+
+
+
+
+
+
+
+
+
+# *** RemoveFrom ***
+
+FACTORY NextComponent { EntityConveyor7 }
+FACTORY WaitQueue { Queue4 }
+FACTORY ServiceTime { 10  s }
+FACTORY NumberOfEntities { 10 }
+FACTORY NextForContainers { EntityConveyor15 }
+
+# *** SignalThreshold ***
+
+
+SignalThreshold2 InitialState { FALSE }
+
+
+SignalThreshold4 InitialState { FALSE }
+
+
+
+SignalThreshold7 InitialState { FALSE }
+
+SignalThreshold8 InitialState { FALSE }
+
+# *** SimEntity ***
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# *** GRAPHICS INPUTS ***
+
+Simulation RealTime { TRUE }
+Simulation SnapToGrid { TRUE }
+Simulation RealTimeFactor { 491520 }
+Simulation ShowLabels { TRUE }
+Simulation ShowSubModels { TRUE }
+Simulation ShowEntityFlow { FALSE }
+Simulation ShowModelBuilder { TRUE }
+Simulation ShowObjectSelector { TRUE }
+Simulation ShowInputEditor { TRUE }
+Simulation ShowOutputViewer { TRUE }
+Simulation ShowPropertyViewer { FALSE }
+Simulation ShowLogViewer { FALSE }
+Simulation ShowEventViewer { FALSE }
+Simulation ModelBuilderPos { 0  102 }
+Simulation ModelBuilderSize { 220  289 }
+Simulation ObjectSelectorPos { 0  391 }
+Simulation ObjectSelectorSize { 220  289 }
+Simulation InputEditorPos { 33  341 }
+Simulation InputEditorSize { 520  317 }
+Simulation OutputViewerPos { 725  366 }
+Simulation OutputViewerSize { 420  192 }
+Simulation PropertyViewerPos { 760  488 }
+Simulation PropertyViewerSize { 520  192 }
+Simulation LogViewerPos { 760  488 }
+Simulation LogViewerSize { 520  192 }
+Simulation EventViewerPos { 366  313 }
+Simulation EventViewerSize { 692  260 }
+Simulation ControlPanelWidth { 1280 }
+
+ExpressionLogger1 Position { 28.6  -0.4  0.0  m }
+
+InputValue1 Position { 7.5  14.1  0.0  m }
+
+InputValue2 Position { 7.4  13.3  0.0  m }
+
+InputValue3 Position { 7.3  15.0  0.0  m }
+
+DiscreteDistribution1 Position { 2.7  -5.6  0.0  m }
+
+NormalDistribution1 Position { -7.4  4.0  0.0  m }
+
+NormalDistribution2 Position { 9.5  13.8  0.0  m }
+NormalDistribution2 Size { 1.3  1.4  1.0  m }
+
+NormalDistribution3 Position { -3.7  -2.8  0.0  m }
+
+AddToTruck Position { -2.2  3.0  0.0  m }
+AddToTruck Size { 1.100000  1.100000  1.0  m }
+AddToTruck DisplayModel { loadedtruck-model2 }
+
+Branch1 Position { 3.8  3.0  0.0  m }
+
+Branch2 Position { 22.9  3.3  0.0  m }
+
+Branch3 Position { 2.6  2.2  0.0  m }
+
+Branch4 Position { 16.2  3.5  0.0  m }
+
+Branch5 Position { 14.5  2.3  0.0  m }
+
+CCTraytruck Position { -6.1  -1.3  0.0  m }
+CCTraytruck Size { 1.000000  1.000000  1.0  m }
+CCTraytruck DisplayModel { truck-model3 }
+
+CARTray Points { { 23.5  3.7  0.0  m } { 25.0  4.8  0.0  m } }
+
+CCTray Points { { 23.0  2.3  0.0  m } { 24.3  1.0  0.0  m } }
+
+EntityConveyor1 Points { { -7.2  2.9  0.0  m } { -3.4  2.9  0.0  m } }
+
+EntityConveyor2 Points { { -1.4  3.0  0.0  m } { 2.7  3.0  0.0  m } }
+
+EntityConveyor3 Points { { 3.7  8.7  0.0  m } { 3.7  3.3  0.0  m } }
+
+EntityConveyor5 Points { { 3.7  2.3  0.0  m } { 3.7  -3.4  0.0  m } }
+
+EntityConveyor6 Points { { 4.2  3.1  0.0  m } { 14.1  3.1  0.0  m } }
+EntityConveyor6 DisplayModel { EntityConveyorModel }
+
+EntityConveyor7 Points { { 25.8  1.0  0.0  m } { 27.9  1.0  0.0  m } }
+
+EntityConveyor8 Points { { 14.1  2.4  0.0  m } { 3.9  2.4  0.0  m } }
+EntityConveyor8 DisplayModel { EntityConveyorModel }
+
+EntityConveyor9 Points { { 2.7  2.4  0.0  m } { -1.5  2.4  0.0  m } { -1.0  -0.8  0.0  m } }
+
+EntityConveyor10 Points { { 2.7  -3.4  0.0  m } { 2.7  2.2  0.0  m } }
+
+EntityConveyor11 Points { { 2.7  3.0  0.0  m } { 2.7  8.2  0.0  m } }
+
+EntityConveyor12 Points { { -4.8  7.3  0.0  m } { -1.4  3.0  0.0  m } }
+
+EntityConveyor13 Points { { 14.6  3.4  0.0  m } { 14.6  9.0  0.0  m } }
+
+EntityConveyor14 Points { { 14.6  -3.3  0.0  m } { 14.6  2.2  0.0  m } }
+
+EntityConveyor15 Points { { 22.3  2.3  0.0  m } { 15.8  2.3  0.0  m } }
+
+EntityConveyor16 Points { { 16.0  3.2  0.0  m } { 22.3  3.2  0.0  m } }
+
+EntityConveyor17 Points { { 16.0  2.0  0.0  m } { 16.0  -3.4  0.0  m } }
+
+EntityConveyor18 Points { { 16.1  8.6  0.0  m } { 16.1  4.4  0.0  m } }
+
+CloseTime Points { { 6.0  4.4  0.0  m } { 6.0  3.5  0.0  m } }
+
+CloseTime2 Points { { 0.6  0.2  0.0  m } { 0.6  1.2  0.0  m } }
+
+CloseTime3 Points { { -2.6  8.5  0.0  m } { -1.6  8.5  0.0  m } }
+
+CloseTime4 Points { { 7.7  1.2  0.0  m } { 6.5  1.2  0.0  m } }
+
+CloseTime5 Points { { 11.3  4.8  0.0  m } { 12.3  4.8  0.0  m } }
+
+CloseTime6 Points { { 19.5  6.7  0.0  m } { 19.5  5.8  0.0  m } }
+
+CloseTime7 Points { { 11.9  -2.6  0.0  m } { 11.9  -1.6  0.0  m } }
+
+CloseTime8 Points { { 19.3  0.8  0.0  m } { 18.1  0.8  0.0  m } }
+
+OpenTime Points { { 5.9  7.0  0.0  m } { 5.9  6.1  0.0  m } }
+
+OpenTime2 Points { { 0.7  -1.9  0.0  m } { 0.7  -1.1  0.0  m } }
+
+OpenTime3 Points { { -0.1  8.5  0.0  m } { 0.8  8.5  0.0  m } }
+
+OpenTime4 Points { { 5.1  1.3  0.0  m } { 4.0  1.3  0.0  m } }
+
+OpenTime5 Points { { 8.8  4.8  0.0  m } { 9.7  4.8  0.0  m } }
+
+OpenTime6 Points { { 19.6  4.2  0.0  m } { 19.6  3.5  0.0  m } }
+
+OpenTime7 Points { { 12.0  -0.3  0.0  m } { 12.0  0.5  0.0  m } }
+
+OpenTime8 Points { { 21.6  0.8  0.0  m } { 20.5  0.8  0.0  m } }
+
+EntityGate1 Position { 4.2  3.6  0.0  m }
+
+EntityGate2 Position { 2.3  1.4  0.0  m }
+
+EntityGate3 Position { 2.1  3.6  0.0  m }
+
+EntityGate4 Position { 4.4  2.1  0.0  m }
+
+EntityGate5 Position { 14.6  3.4  0.0  m }
+
+EntityGate6 Position { 16.2  2.3  0.0  m }
+
+EntityGate7 Position { 14.0  1.2  0.0  m }
+
+EntityGate8 Position { 16.0  4.5  0.0  m }
+
+CARtrafficgenerator Position { 3.8  9.2  0.0  m }
+CARtrafficgenerator Size { 1.467742  1.000000  1.0  m }
+CARtrafficgenerator DisplayModel { enter-model1 }
+
+CARtrafficgenerator2 Position { 2.8  -3.5  0.0  m }
+CARtrafficgenerator2 Size { 1.467742  1.000000  1.0  m }
+CARtrafficgenerator2 DisplayModel { enter-model1 }
+
+CARtrafficgenerator3 Position { -5.5  8.1  0.0  m }
+CARtrafficgenerator3 Size { 1.467742  1.000000  1.0  m }
+CARtrafficgenerator3 DisplayModel { enter-model1 }
+
+CARtrafficgenerator4 Position { 14.4  -3.5  0.0  m }
+CARtrafficgenerator4 Size { 1.467742  1.000000  1.0  m }
+CARtrafficgenerator4 DisplayModel { enter-model1 }
+
+CARtrafficgenerator5 Position { 16.1  9.3  0.0  m }
+CARtrafficgenerator5 Size { 1.467742  1.000000  1.0  m }
+CARtrafficgenerator5 DisplayModel { enter-model1 }
+
+CarPartsEnteringLoadingDock Position { -7.3  2.9  0.0  m }
+CarPartsEnteringLoadingDock Size { 0.700000  0.700000  1.0  m }
+CarPartsEnteringLoadingDock DisplayModel { plane-model1 }
+
+TruckGenerator Position { -3.6  -1.3  0.0  m }
+
+ballgenerator Position { 6.2  9.3  0.0  m }
+
+ballgenerator2 Position { 0.5  -5.0  0.0  m }
+
+ballgenerator3 Position { -3.4  10.1  0.0  m }
+
+ballgenerator4 Position { 10.1  1.1  0.0  m }
+
+ballgenerator5 Position { 7.9  6.3  0.0  m }
+
+ballgenerator6 Position { 19.4  8.9  0.0  m }
+
+ballgenerator7 Position { 12.0  -5.2  0.0  m }
+
+ballgenerator8 Position { 22.3  -0.6  0.0  m }
+
+Open4 Position { 5.9  1.4  0.0  m }
+
+Open8 Position { 22.2  1.0  0.0  m }
+
+close1 Position { 5.9  5.3  0.0  m }
+
+close2 Position { 0.6  -0.4  0.0  m }
+
+close3 Position { -3.2  8.6  0.0  m }
+
+close4 Position { 8.6  1.4  0.0  m }
+
+close5 Position { 10.5  5.0  0.0  m }
+
+close6 Position { 19.5  7.5  0.0  m }
+
+close7 Position { 11.9  -3.2  0.0  m }
+
+close8 Position { 19.9  1.0  0.0  m }
+
+open1 Position { 5.9  8.0  0.0  m }
+
+open2 Position { 0.7  -2.5  0.0  m }
+
+open3 Position { -0.9  8.7  0.0  m }
+
+open5 Position { 7.9  5.1  0.0  m }
+
+open6 Position { 19.5  5.1  0.0  m }
+
+open7 Position { 11.9  -0.9  0.0  m }
+
+EntitySink1 Position { 25.5  5.1  0.0  m }
+EntitySink1 Size { 1.333333  1.000000  1.0  m }
+EntitySink1 DisplayModel { exit-model3 }
+
+EntitySink2 Position { 4.0  -3.2  0.0  m }
+EntitySink2 Size { 1.333333  1.000000  1.0  m }
+EntitySink2 DisplayModel { exit-model3 }
+
+EntitySink3 Position { 2.4  9.0  0.0  m }
+EntitySink3 Size { 1.333333  1.000000  1.0  m }
+EntitySink3 DisplayModel { exit-model3 }
+
+EntitySink5 Position { 14.5  9.3  0.0  m }
+EntitySink5 Size { 1.333333  1.000000  1.0  m }
+EntitySink5 DisplayModel { exit-model3 }
+
+EntitySink6 Position { 16.1  -3.4  0.0  m }
+EntitySink6 Size { 1.333333  1.000000  1.0  m }
+EntitySink6 DisplayModel { exit-model3 }
+
+ParcelExit Position { 28.95  1.3  0.0  m }
+ParcelExit Size { 1.9  1.8  1.0  m }
+ParcelExit DisplayModel { delivery-model }
+
+BusQueue Position { -1.2  -1.3  0.0  m }
+BusQueue Size { 0.986799  1.000000  1.0  m }
+BusQueue DisplayModel { busterminal-model1 }
+
+DockingStation Position { -3.55  3.15  0.0  m }
+DockingStation Size { 1.000000  1.000000  1.0  m }
+DockingStation DisplayModel { load-model1 }
+DockingStation MaxPerLine { 10 }
+
+Queue3 Position { 3.849977  4.902618  0.0  m }
+Queue3 Size { 0.5  0.2  0.0  m }
+Queue3 Orientation { 0.0  0.0  -89.0  deg }
+
+Queue4 Position { 24.9  -0.4  0.0  m }
+Queue4 Size { 0.8  0.5  0.0  m }
+Queue4 Orientation { 0.0  0.0  0.0  deg }
+
+Queue5 Position { 2.8  -0.4  2.6  m }
+Queue5 Orientation { 0.0  0.0  90.0  deg }
+
+Queue6 Position { 13.9  0.3  2.6  m }
+
+Queue7 Position { 16.1  5.5  0.0  m }
+Queue7 Orientation { 0.0  0.0  -89.0  deg }
+Queue7 MaxRows { 4 }
+
+trafficQ Position { 1.0  3.3  0.0  m }
+
+trafficQ_7 Position { 13.7  3.4  0.0  m }
+trafficQ_7 Size { 0.7  0.7  0.0  m }
+trafficQ_7 Orientation { 0.0  0.0  0.0  deg }
+
+trafficQ_Back Position { 6.2  2.3  0.0  m }
+
+trafficQ_Back_2 Position { 18.3  2.0  0.0  m }
+
+FACTORY Position { 25.0  0.9  0.0  m }
+FACTORY Size { 1.300000  1.300000  1.0  m }
+FACTORY DisplayModel { warehouse-model1 }
+
+SignalThreshold1 Position { 4.7  4.7  0.0  m }
+
+SignalThreshold2 Position { 2.1  0.2  0.0  m }
+
+SignalThreshold3 Position { 1.6  4.8  0.0  m }
+
+SignalThreshold4 Position { 4.4  0.5  0.0  m }
+
+SignalThreshold5 Position { 13.5  5.0  0.0  m }
+
+SignalThreshold6 Position { 17.5  4.8  0.0  m }
+
+SignalThreshold7 Position { 12.5  1.5  0.0  m }
+
+SignalThreshold8 Position { 16.9  0.5  0.0  m }
+
+CAR Position { 5.0  9.2  0.0  m }
+CAR Alignment { 0.0  0.0  -0.5 }
+CAR Size { 0.500000  0.500000  1.0  m }
+CAR DisplayModel { car-model1 }
+
+CAR2 Position { 2.8  -4.6  0.0  m }
+CAR2 Alignment { 0.0  0.0  -0.5 }
+CAR2 Size { 0.500000  0.500000  1.0  m }
+CAR2 DisplayModel { car-model1 }
+
+CAR3 Position { -6.4  8.1  0.0  m }
+CAR3 Alignment { 0.0  0.0  -0.5 }
+CAR3 Size { 0.500000  0.500000  1.0  m }
+CAR3 DisplayModel { car-model1 }
+
+CAR4 Position { 14.4  -4.8  0.0  m }
+CAR4 Alignment { 0.0  0.0  -0.5 }
+CAR4 Size { 0.500000  0.500000  1.0  m }
+CAR4 DisplayModel { car-model1 }
+
+CAR5 Position { 17.0  9.4  0.0  m }
+CAR5 Alignment { 0.0  0.0  -0.5 }
+CAR5 Size { 0.500000  0.500000  1.0  m }
+CAR5 DisplayModel { car-model1 }
+
+Parcel Position { -8.3  2.9  0.0  m }
+Parcel Alignment { 0.0  0.0  -0.5 }
+Parcel Size { 0.300000  0.300000  1.0  m }
+Parcel DisplayModel { parcel-model3 }
+
+TimeBall Position { 7.2  7.6  0.0  m }
+TimeBall Alignment { 0.0  0.0  -0.5 }
+
+TimeBall2 Position { 0.7  -3.8  0.0  m }
+TimeBall2 Alignment { 0.0  0.0  -0.5 }
+
+TimeBall3 Position { -3.4  7.5  0.0  m }
+TimeBall3 Alignment { 0.0  0.0  -0.5 }
+
+TimeBall4 Position { 10.1  -0.1  0.0  m }
+TimeBall4 Alignment { 0.0  0.0  -0.5 }
+
+TimeBall5 Position { 8.7  7.7  0.0  m }
+TimeBall5 Alignment { 0.0  0.0  -0.5 }
+
+TimeBall6 Position { 19.4  10.1  0.0  m }
+TimeBall6 Alignment { 0.0  0.0  -0.5 }
+
+TimeBall7 Position { 11.9  -4.2  0.0  m }
+TimeBall7 Alignment { 0.0  0.0  -0.5 }
+
+TimeBall8 Position { 22.2  -1.9  0.0  m }
+TimeBall8 Alignment { 0.0  0.0  -0.5 }
+
+# *** ColladaModel ***
+
+Axis ColladaFile { <res>/shapes/axis_text.dae }
+
+Grid100x100 ColladaFile { <res>/shapes/grid100x100.dae }
+
+# *** ImageModel ***
+
+busterminal-model1 ImageFile { graphics.sma/busterminal.png }
+*** INPUT ERROR *** Entity: busterminal-model1, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/busterminal.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/busterminal.png
+
+
+car-model1 ImageFile { graphics.sma/car.png }
+*** INPUT ERROR *** Entity: car-model1, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/car.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/car.png
+
+
+delivery-model ImageFile { graphics.sma/delivery.png }
+*** INPUT ERROR *** Entity: delivery-model, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/delivery.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/delivery.png
+
+
+enter-model1 ImageFile { graphics.sma/enter.jpg }
+*** INPUT ERROR *** Entity: enter-model1, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/enter.jpg
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/enter.jpg
+
+
+exit-model3 ImageFile { graphics.sma/exit.jpg }
+*** INPUT ERROR *** Entity: exit-model3, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/exit.jpg
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/exit.jpg
+
+
+load-model1 ImageFile { graphics.sma/load.png }
+*** INPUT ERROR *** Entity: load-model1, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/load.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/load.png
+
+
+loadedtruck-model1 ImageFile { graphics.sma/loadedtruck.png }
+*** INPUT ERROR *** Entity: loadedtruck-model1, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/loadedtruck.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/loadedtruck.png
+
+
+loadedtruck-model2 ImageFile { graphics.sma/loadedtruck.png }
+*** INPUT ERROR *** Entity: loadedtruck-model2, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/loadedtruck.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/loadedtruck.png
+
+
+parcel-model3 ImageFile { graphics.sma/parcel.png }
+*** INPUT ERROR *** Entity: parcel-model3, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/parcel.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/parcel.png
+
+
+plane-model1 ImageFile { graphics.sma/plane.png }
+*** INPUT ERROR *** Entity: plane-model1, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/plane.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/plane.png
+
+
+truck-model3 ImageFile { graphics.sma/truck.png }
+*** INPUT ERROR *** Entity: truck-model3, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/truck.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/truck.png
+
+
+warehouse-model1 ImageFile { graphics.sma/warehouse.png }
+*** INPUT ERROR *** Entity: warehouse-model1, Keyword: ImageFile - The specified file does not exist.
+File path = graphics.sma/warehouse.png
+URI=file:/C:/SMA/Project%20Team%203/User%20Interface%20Visualization%20and%20Animation/graphics.sma/warehouse.png
+
+
+# *** Arrow ***
+
+Arrow1 Points { { -5.4  -1.3  0.0  m } { -4.4  -1.3  0.0  m } }
+
+Arrow2 Points { { -2.9  -1.3  0.0  m } { -1.8  -1.3  0.0  m } }
+
+Arrow3 Points { { -1.6  -0.8  0.0  m } { -3.2  2.4  0.0  m } }
+
+# *** DisplayEntity ***
+
+XY-Grid Description { 'Grid for the X-Y plane (100 m x 100 m)' }
+XY-Grid Size { 100  100  m }
+XY-Grid DisplayModel { Grid100x100 }
+XY-Grid Show { FALSE }
+XY-Grid Movable { FALSE }
+
+XYZ-Axis Description { 'Unit vectors' }
+XYZ-Axis Alignment { -0.4393409  -0.4410096  -0.4394292 }
+XYZ-Axis Size { 1.125000  1.1568242  1.1266404  m }
+XYZ-Axis DisplayModel { Axis }
+XYZ-Axis Show { FALSE }
+XYZ-Axis Movable { FALSE }
+
+# *** EntityLabel ***
+
+AddToTruck_Label Position { 0.0  -0.65  0.0  m }
+AddToTruck_Label Size { 1.4  0.3  1.0  m }
+AddToTruck_Label RelativeEntity { AddToTruck }
+AddToTruck_Label Show { FALSE }
+AddToTruck_Label TargetEntity { AddToTruck }
+
+BusQueue_Label Position { 0.0  -0.7  0.0  m }
+BusQueue_Label Size { 1.2  0.3  1.0  m }
+BusQueue_Label RelativeEntity { BusQueue }
+BusQueue_Label Show { FALSE }
+BusQueue_Label TargetEntity { BusQueue }
+
+CAR3_Label Position { -0.2  -0.4  0.0  m }
+CAR3_Label Size { 0.7  0.3  1.0  m }
+CAR3_Label RelativeEntity { CAR3 }
+CAR3_Label Show { FALSE }
+CAR3_Label TargetEntity { CAR3 }
+
+CAR5_Label Position { 0.2  -0.4  0.0  m }
+CAR5_Label Size { 0.7  0.3  1.0  m }
+CAR5_Label RelativeEntity { CAR5 }
+CAR5_Label Show { FALSE }
+CAR5_Label TargetEntity { CAR5 }
+
+CARtrafficgenerator5_Label Position { 0.4  -0.6  0.0  m }
+CARtrafficgenerator5_Label Size { 2.3  0.3  1.0  m }
+CARtrafficgenerator5_Label Orientation { 0.0  0.0  0.0  deg }
+CARtrafficgenerator5_Label RelativeEntity { CARtrafficgenerator5 }
+CARtrafficgenerator5_Label Show { FALSE }
+CARtrafficgenerator5_Label TargetEntity { CARtrafficgenerator5 }
+
+CarPartsEnteringLoadingDock_Label Position { 0.3  -0.6  0.0  m }
+CarPartsEnteringLoadingDock_Label Size { 3.2  0.3  1.0  m }
+CarPartsEnteringLoadingDock_Label RelativeEntity { CarPartsEnteringLoadingDock }
+CarPartsEnteringLoadingDock_Label Show { FALSE }
+CarPartsEnteringLoadingDock_Label TargetEntity { CarPartsEnteringLoadingDock }
+
+CloseTime2_Label Position { -0.7  -0.0  0.0  m }
+CloseTime2_Label Size { 1.3  0.3  1.0  m }
+CloseTime2_Label RelativeEntity { CloseTime2 }
+CloseTime2_Label Show { FALSE }
+CloseTime2_Label TargetEntity { CloseTime2 }
+
+CloseTime3_Label Position { 0.0  0.3  0.0  m }
+CloseTime3_Label Size { 1.3  0.3  1.0  m }
+CloseTime3_Label RelativeEntity { CloseTime3 }
+CloseTime3_Label Show { FALSE }
+CloseTime3_Label TargetEntity { CloseTime3 }
+
+CloseTime6_Label Position { 1.3  -0.1  0.0  m }
+CloseTime6_Label Size { 1.3  0.3  1.0  m }
+CloseTime6_Label RelativeEntity { CloseTime6 }
+CloseTime6_Label Show { FALSE }
+CloseTime6_Label TargetEntity { CloseTime6 }
+
+CloseTime7_Label Position { 0.8  0.0  0.0  m }
+CloseTime7_Label Size { 1.3  0.3  1.0  m }
+CloseTime7_Label RelativeEntity { CloseTime7 }
+CloseTime7_Label Show { FALSE }
+CloseTime7_Label TargetEntity { CloseTime7 }
+
+CloseTime_Label Position { 1.0  -0.2  0.0  m }
+CloseTime_Label Size { 1.2  0.3  1.0  m }
+CloseTime_Label RelativeEntity { CloseTime }
+CloseTime_Label Show { FALSE }
+CloseTime_Label TargetEntity { CloseTime }
+
+DockingStation_Label Position { 0.0  -0.6  0.0  m }
+DockingStation_Label Size { 1.7  0.3  1.0  m }
+DockingStation_Label RelativeEntity { DockingStation }
+DockingStation_Label Show { FALSE }
+DockingStation_Label TargetEntity { DockingStation }
+
+EntityConveyor2_Label Position { -0.9  -0.3  0.0  m }
+EntityConveyor2_Label Size { 1.8  0.3  1.0  m }
+EntityConveyor2_Label RelativeEntity { EntityConveyor2 }
+EntityConveyor2_Label Show { FALSE }
+EntityConveyor2_Label TargetEntity { EntityConveyor2 }
+
+EntityConveyor3_Label Position { -0.4  0.2  0.0  m }
+EntityConveyor3_Label Size { 1.8  0.3  1.0  m }
+EntityConveyor3_Label Orientation { 0.0  0.0  -89.0  deg }
+EntityConveyor3_Label RelativeEntity { EntityConveyor3 }
+EntityConveyor3_Label Show { FALSE }
+EntityConveyor3_Label TargetEntity { EntityConveyor3 }
+
+EntityConveyor5_Label Position { 0.5  -0.9  0.0  m }
+EntityConveyor5_Label Size { 1.8  0.3  1.0  m }
+EntityConveyor5_Label Orientation { 0.0  0.0  -92.0  deg }
+EntityConveyor5_Label RelativeEntity { EntityConveyor5 }
+EntityConveyor5_Label Show { FALSE }
+EntityConveyor5_Label TargetEntity { EntityConveyor5 }
+
+EntityConveyor9_Label Position { -0.7  1.2  0.0  m }
+EntityConveyor9_Label Size { 1.8  0.3  1.0  m }
+EntityConveyor9_Label RelativeEntity { EntityConveyor9 }
+EntityConveyor9_Label Show { FALSE }
+EntityConveyor9_Label TargetEntity { EntityConveyor9 }
+
+EntityConveyor10_Label Position { 0.2  -1.0  0.0  m }
+EntityConveyor10_Label Size { 2.0  0.3  1.0  m }
+EntityConveyor10_Label Orientation { 0.0  0.0  -92.0  deg }
+EntityConveyor10_Label RelativeEntity { EntityConveyor10 }
+EntityConveyor10_Label Show { FALSE }
+EntityConveyor10_Label TargetEntity { EntityConveyor10 }
+
+EntityConveyor11_Label Position { -0.4  0.6  0.0  m }
+EntityConveyor11_Label Size { 2.0  0.3  1.0  m }
+EntityConveyor11_Label Orientation { 0.0  0.0  -91.0  deg }
+EntityConveyor11_Label RelativeEntity { EntityConveyor11 }
+EntityConveyor11_Label Show { FALSE }
+EntityConveyor11_Label TargetEntity { EntityConveyor11 }
+
+EntityConveyor17_Label Position { 1.3  -0.4  0.0  m }
+EntityConveyor17_Label Size { 2.0  0.3  1.0  m }
+EntityConveyor17_Label RelativeEntity { EntityConveyor17 }
+EntityConveyor17_Label Show { FALSE }
+EntityConveyor17_Label TargetEntity { EntityConveyor17 }
+
+EntityGate1_Label Position { 0.7  -0.8  0.0  m }
+EntityGate1_Label Size { 1.4  0.3  1.0  m }
+EntityGate1_Label RelativeEntity { EntityGate1 }
+EntityGate1_Label Show { FALSE }
+EntityGate1_Label TargetEntity { EntityGate1 }
+
+FACTORY_Label Position { 0.0  -0.65  0.0  m }
+FACTORY_Label Size { 1.1  0.3  1.0  m }
+FACTORY_Label RelativeEntity { FACTORY }
+FACTORY_Label Show { FALSE }
+FACTORY_Label TargetEntity { FACTORY }
+
+OpenTime2_Label Position { -0.8  -0.2  0.0  m }
+OpenTime2_Label Size { 1.3  0.3  1.0  m }
+OpenTime2_Label RelativeEntity { OpenTime2 }
+OpenTime2_Label Show { FALSE }
+OpenTime2_Label TargetEntity { OpenTime2 }
+
+OpenTime3_Label Position { -0.2  0.4  0.0  m }
+OpenTime3_Label Size { 1.3  0.3  1.0  m }
+OpenTime3_Label RelativeEntity { OpenTime3 }
+OpenTime3_Label Show { FALSE }
+OpenTime3_Label TargetEntity { OpenTime3 }
+
+OpenTime6_Label Position { 1.3  -0.1  0.0  m }
+OpenTime6_Label Size { 1.3  0.3  1.0  m }
+OpenTime6_Label RelativeEntity { OpenTime6 }
+OpenTime6_Label Show { FALSE }
+OpenTime6_Label TargetEntity { OpenTime6 }
+
+OpenTime7_Label Position { 0.8  -0.1  0.0  m }
+OpenTime7_Label Size { 1.3  0.3  1.0  m }
+OpenTime7_Label RelativeEntity { OpenTime7 }
+OpenTime7_Label Show { FALSE }
+OpenTime7_Label TargetEntity { OpenTime7 }
+
+OpenTime_Label Position { 0.8  -0.1  0.0  m }
+OpenTime_Label Size { 1.2  0.3  1.0  m }
+OpenTime_Label RelativeEntity { OpenTime }
+OpenTime_Label Show { FALSE }
+OpenTime_Label TargetEntity { OpenTime }
+
+ParcelExit_Label Position { 0.0  -1.0  0.0  m }
+ParcelExit_Label Size { 1.2  0.3  1.0  m }
+ParcelExit_Label RelativeEntity { ParcelExit }
+ParcelExit_Label Show { FALSE }
+ParcelExit_Label TargetEntity { ParcelExit }
+
+Parcel_Label Position { -0.2  -0.3  0.0  m }
+Parcel_Label Size { 0.8  0.3  1.0  m }
+Parcel_Label RelativeEntity { Parcel }
+Parcel_Label Show { FALSE }
+Parcel_Label TargetEntity { Parcel }
+
+Queue3_Label Position { 0.0  -0.4  0.0  m }
+Queue3_Label Size { 0.9  0.3  1.0  m }
+Queue3_Label RelativeEntity { Queue3 }
+Queue3_Label Show { FALSE }
+Queue3_Label TargetEntity { Queue3 }
+
+ballgenerator_Label Position { 1.8  -0.1  0.0  m }
+ballgenerator_Label Size { 1.5  0.3  1.0  m }
+ballgenerator_Label RelativeEntity { ballgenerator }
+ballgenerator_Label Show { FALSE }
+ballgenerator_Label TargetEntity { ballgenerator }
+
+close7_Label Position { -0.5  -0.6  0.0  m }
+close7_Label Size { 0.8  0.3  1.0  m }
+close7_Label RelativeEntity { close7 }
+close7_Label Show { FALSE }
+close7_Label TargetEntity { close7 }
+
+trafficQ_7_Label Position { 0.0  -0.4  0.0  m }
+trafficQ_7_Label Size { 1.2  0.3  1.0  m }
+trafficQ_7_Label RelativeEntity { trafficQ_7 }
+trafficQ_7_Label Show { FALSE }
+trafficQ_7_Label TargetEntity { trafficQ_7 }
+
+# *** Graph ***
+
+Graph1 Position { 38.8  13.2  4.7  m }
+Graph1 Size { 13.7  6.8  0.0  m }
+Graph1 Title { 'Number of goods per unit time' }
+Graph1 XAxisTitle { Time }
+Graph1 XAxisStart { -4  h }
+Graph1 XAxisInterval { 1  h }
+Graph1 YAxisTitle { 'No. of goods per unit time' }
+Graph1 YAxisStart { 0.009  /s }
+Graph1 YAxisEnd { 0.015  /s }
+Graph1 YAxisInterval { 0.001  /s }
+Graph1 YAxisLabelFormat { %.3f }
+Graph1 YLinesColor { { Gray } }
+Graph1 SecondaryYAxisEnd { 20 }
+Graph1 DataSource { { ([ParcelExit].NumberProcessed)/[Simulation].SimTime } }
+
+# *** OverlayClock ***
+
+Clock Description { 'Simulation date and time' }
+Clock ScreenPosition { 15  15 }
+Clock AlignBottom { TRUE }
+Clock TextHeight { 10 }
+Clock FontColour { gray20 }
+Clock FontStyle { ITALIC }
+Clock DateFormat { 'yyyy-MMM-dd HH:mm:ss.SSS' }
+
+# *** OverlayText ***
+
+Title Description { 'Title for the simulation model' }
+Title ScreenPosition { 15  15 }
+Title Format { 'Freight ' }
+Title TextHeight { 18 }
+Title FontColour { 150  23  46 }
+Title FontStyle { BOLD }
+
+# *** Text ***
+
+Text1 Position { 37.4  5.2  4.7  m }
+Text1 Size { 15.4  0.6  1.0  m }
+Text1 FontStyle { BOLD }
+Text1 Format { 'Total number of vehicles at Junction A at any one point in time = ' }
+
+Text2 Position { 34.5  8.2  4.7  m }
+Text2 Size { 21.0  0.6  1.0  m }
+Text2 FontStyle { BOLD }
+Text2 Format { 'Processing Rate = Total number of parcels that have reached the warehouse / SimTime =' }
+
+Text3 Position { 47.7  8.2  4.7  m }
+Text3 Size { 1.7  1.0  1.0  m }
+Text3 Orientation { 0.0  0.0  0.0  deg }
+Text3 FontStyle { BOLD }
+Text3 Format { %s }
+Text3 DataSource { ([ParcelExit].NumberProcessed)/([Simulation].SimTime)*1000 }
+
+Text4 Position { 36.9  6.8  4.7  m }
+Text4 Size { 16.4  0.6  1.0  m }
+Text4 FontStyle { BOLD }
+Text4 Format { 'Total number of vehicles at the 2 junctions at any one point in time = ' }
+
+Text5 Position { -0.3  14.9  0.0  m }
+Text5 Size { 12.5  0.6  1.0  m }
+Text5 FontStyle { BOLD }
+Text5 Format { 'Time Taken for each traffic light to turn Red or Green' }
+
+Text6 Position { 1.0  13.4  0.0  m }
+Text6 Size { 10.2  0.6  1.0  m }
+Text6 FontStyle { BOLD }
+Text6 Format { 'Sd for Time taken for 1 car to be produced ' }
+
+Text7 Position { 0.7  14.1  0.0  m }
+Text7 Size { 10.8  0.6  1.0  m }
+Text7 FontStyle { BOLD }
+Text7 Format { 'Mean for Time taken for 1 car to be produced ' }
+
+Text8 Position { 45.8  6.8  4.7  m }
+Text8 Size { 1.5  0.6  1.0  m }
+Text8 FontStyle { BOLD }
+Text8 Format { %.0f }
+Text8 DataSource { [EntityConveyor2].NumberInProgress+[EntityConveyor11].NumberInProgress+[EntityConveyor3].NumberInProgress+[EntityConveyor6].NumberInProgress+[EntityConveyor8].NumberInProgress+[EntityConveyor5].NumberInProgress+[EntityConveyor10].NumberInProgress+[EntityConveyor9].NumberInProgress+[EntityConveyor13].NumberInProgress+[EntityConveyor18].NumberInProgress+[EntityConveyor16].NumberInProgress+[EntityConveyor15].NumberInProgress+[EntityConveyor17].NumberInProgress+[EntityConveyor14].NumberInProgress+[trafficQ].NumberInProgress+[Queue3].NumberInProgress+[trafficQ_Back].NumberInProgress+[Queue5].NumberInProgress+[trafficQ_7].NumberInProgress+[Queue7].NumberInProgress+[trafficQ_Back_2].NumberInProgress+[Queue6].NumberInProgress }
+
+Text9 Position { 3.2  2.7  0.0  m }
+Text9 Size { 0.7  0.6  1.0  m }
+Text9 Format { 'A ' }
+
+Text10 Position { 15.3  2.4  0.0  m }
+Text10 Size { 0.6  0.6  1.0  m }
+Text10 Format { B }
+
+Text11 Position { 45.9  5.2  4.7  m }
+Text11 Size { 1.7  0.6  1.0  m }
+Text11 Format { %.0f }
+Text11 DataSource { [EntityConveyor2].NumberInProgress+[EntityConveyor11].NumberInProgress+[EntityConveyor3].NumberInProgress+[EntityConveyor6].NumberInProgress+[EntityConveyor8].NumberInProgress+[EntityConveyor5].NumberInProgress+[EntityConveyor10].NumberInProgress+[EntityConveyor9].NumberInProgress+[trafficQ].NumberInProgress+[Queue3].NumberInProgress+[trafficQ_Back].NumberInProgress+[Queue5].NumberInProgress }
+
+Text12 Position { 37.4  3.6  4.7  m }
+Text12 Size { 15.3  0.6  1.0  m }
+Text12 FontStyle { BOLD }
+Text12 Format { 'Total number of vehicles at Junction B at any one point in time = ' }
+
+Text13 Position { 45.9  3.6  4.7  m }
+Text13 Size { 1.7  0.6  1.0  m }
+Text13 Format { %.0f }
+Text13 DataSource { '[EntityConveyor13].NumberInProgress+[EntityConveyor18].NumberInProgress+[EntityConveyor16].NumberInProgress+[EntityConveyor15].NumberInProgress+[EntityConveyor17].NumberInProgress+[EntityConveyor14].NumberInProgress+ 
+[trafficQ_7].NumberInProgress+[Queue7].NumberInProgress+[trafficQ_Back_2].NumberInProgress+[Queue6].NumberInProgress' }
+
+Text14 Position { 51.2  8.2  4.7  m }
+Text14 Size { 1.8  0.6  1.0  m }
+Text14 Format { 'X 10-3 ' }
+
+# *** View ***
+
+View1 Description { 'Default view window' }
+View1 ViewCenter { 21.54252  -1.095671  -20.851884  m }
+View1 ViewPosition { 21.54252  -1.095671  18.337293  m }
+View1 WindowSize { 904  676 }
+View1 WindowPosition { 521  9 }
+View1 ShowWindow { TRUE }
+View1 Lock2D { TRUE }
+View1 SkyboxImage { <res>/images/sky_map_2048x1024.jpg }
+
+View2 ViewCenter { -3.522974  13.431404  -140.312914  m }
+View2 ViewPosition { -3.522974  13.431404  -122.992453  m }
+View2 WindowPosition { 209  418 }
+View2 ShowWindow { FALSE }
+Input Error: 12 input errors and 0 warnings found
